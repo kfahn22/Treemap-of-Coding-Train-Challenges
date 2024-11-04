@@ -30,7 +30,7 @@ I got some help from chatGPT writing the script to create the json file. It coul
 python create_json.py
 ```
 
-The output will be a json file (It is named `showcases.json`). It will have the following format:
+The output will be a json file (`showcases.json`). It will have the following format:
 
 ```JSON
 {
@@ -76,7 +76,7 @@ root = d3.hierarchy(data).sum((d) => d.value);
 
 We are specifying the `treemapSquarify` option for the tile because this give a nicer aspect ratio. To learn more about treemaps, I recommend reading the seminal article "Squarified Treemaps" by Bruls, et. al.
 
-I decided to try to create a zoomable treemap to viualize the showcase (similar to this [one](https://observablehq.com/@d3/zoomable-treemap) listed in the examples on the d3 website).
+I decided to try to create a zoomable treemap to visualize the showcase (similar to this [one](https://observablehq.com/@d3/zoomable-treemap) listed in the examples on the d3 website).
 
 I am sure there are many improvements that could be added, but it is a decent start. You can explore the treemap here.
 
