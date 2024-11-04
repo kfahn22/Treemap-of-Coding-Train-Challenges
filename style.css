@@ -1,0 +1,30 @@
+html,
+body {
+  /* margin: 0;
+  /* padding: 0; */
+  background-color: black;
+}
+canvas {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.title {
+  color: #fcee21;
+  font-size: 2.5em;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.reset {
+  color: white;
+  background-color: #66d334;
+  color: black;
+  display: block;
+  padding: 0.5em;
+  margin-top: 1em;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.2em;
+}
