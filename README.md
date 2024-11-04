@@ -1,6 +1,6 @@
 # Treemap 0f Coding Train Challenges Showcases
 
-Zoomable treemap in p5.js using [d3js](https://d3js.org) illustrated with Coding Train challenge showcase count.
+Zoomable treemap in p5.js using [d3js](https://d3js.org) illustrated with [Coding Train](https://github.com/CodingTrain/thecodingtrain.com) challenge showcase count.
 
 ## Steps
 
