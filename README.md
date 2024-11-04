@@ -20,9 +20,9 @@ The output of this command will look like something like this:
 
 2. Copy the result of the command and paste into a .txt file. (I named the file "10_30_24.txt" because I wanted to keep track of the date I accessed the website files.)
 
-3. I got some help from chatGPT writing the script to create the json file. It could probably be improved upon, but it is functional. Because I wanted to explore creating a zoomable treemap, I grouped the challenges into major categories and then divided some into sub-categories. Again, my categorization scheme could probably be improved upon, but I think it is a decent start.
+I got some help from chatGPT writing the script to create the json file. It could probably be improved upon, but it is functional. Because I wanted to explore creating a zoomable treemap, I grouped the challenges into major categories and then divided some into sub-categories. Again, my categorization scheme could probably be improved upon, but I think it is a decent start.
 
-4. Run the `create_json.py` script in terminal, changing `input_file` (line 131) to whatever you have named the txt file. Make sure your are in the same folder as the txt file when you run the command.
+3. Run the `create_json.py` script in terminal, changing `input_file` (line 131) to whatever you have named the txt file. Make sure your are in the same folder as the txt file when you run the command.
 
 ```python
 python create_json.py
@@ -52,7 +52,7 @@ The output will be a json file (It is named `showcases.json`). It will have the 
         },
 
 
-5. Preload the json file into your p5 sketch using the loadJSON() function.
+4. Preload the json file into your p5 sketch using the loadJSON() function.
 
 ```JavaScript
 function preload() {
@@ -62,7 +62,7 @@ function preload() {
 
 
 
-6. Initialize the d3 hierarchy and treemap layout.
+5. Initialize the d3 hierarchy and treemap layout.
 
 ```JavaScript
 root = d3.hierarchy(data).sum((d) => d.value);
