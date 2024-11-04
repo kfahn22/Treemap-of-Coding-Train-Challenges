@@ -12,11 +12,13 @@ git ls-files | awk '{$NF="";print}' FS=/ OFS=/ | sort | uniq -c
 
 The output of this command will look like something like this:
 
+```txt
 31 content/videos/challenges/100-neuroevolution-flappy-bird/showcase/
 2 content/videos/challenges/101-may-the-4th-scrolling-text/
 4 content/videos/challenges/101-may-the-4th-scrolling-text/showcase/
 2 content/videos/challenges/102-2d-water-ripple/
 1 content/videos/challenges/102-2d-water-ripple/images/
+```
 
 2. Copy the result of the command and paste into a .txt file. (I named the file "10_30_24.txt" because I wanted to keep track of the date I accessed the website files.)
 
@@ -53,7 +55,6 @@ The output will be a json file (It is named `showcases.json`). It will have the 
         },
 ```
 
-
 4. Preload the json file into your p5 sketch using the loadJSON() function.
 
 ```JavaScript
@@ -61,8 +62,6 @@ function preload() {
   data = loadJSON("showcases.json");
 }
 ```
-
-
 
 5. Initialize the d3 hierarchy and treemap layout.
 
@@ -75,7 +74,8 @@ root = d3.hierarchy(data).sum((d) => d.value);
     .tile(d3.treemapSquarify);
 ```
 
-We are specifying the `treemapSquarify` option for the tile because this give a nicer aspect ratio. To learn more about treemaps, you can read
+We are specifying the `treemapSquarify` option for the tile because this give a nicer aspect ratio. To learn more about treemaps, I recommend reading the seminal article "Squarified Treemaps" by Bruls, et. al.
+
 I decided to try to create a zoomable treemap to viualize the showcase (similar to this [one](https://observablehq.com/@d3/zoomable-treemap) listed in the examples on the d3 website).
 
 I am sure there are many improvements that could be added, but it is a decent start. You can explore the treemap here.
