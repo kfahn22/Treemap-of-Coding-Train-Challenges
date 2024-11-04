@@ -6,7 +6,9 @@ Zoomable treemap in p5.js using [d3js](https://d3js.org) illustrated with Coding
 
 - Run this [command](https://stackoverflow.com/questions/71669974/how-to-count-number-of-tracked-files-in-each-sub-directory-of-the-repository) in terminal
 
-`git ls-files | awk '{$NF="";print}' FS=/ OFS=/ | sort | uniq -c`
+```
+git ls-files | awk '{$NF="";print}' FS=/ OFS=/ | sort | uniq -c
+```
 
 The output of this command will look like something like this:
 
@@ -22,7 +24,9 @@ The output of this command will look like something like this:
 
 - Run the `create_json.py` script in terminal, changing `input_file` (line 131) to whatever you have named the txt file. Make sure your are in the same folder as the txt file when you run the command.
 
-`python create_json.py`
+```python
+python create_json.py
+```
 
 The output will be a json file (It is named `showcases.json`). It will have the following format:
 
@@ -48,12 +52,35 @@ The output will be a json file (It is named `showcases.json`). It will have the 
         },
 `
 
+One you have your .json file, you can preload it into your p5 sketch using the loadJSON() function.
+
+```JavaScript
+function preload() {
+  data = loadJSON("showcases.json");
+}
+```
+
 - Preload the `showcases.json` file into a p5 sketch.
 
+Once you have loaded the data, you need to initialize the d3 hierarchy and treemap layout.
+
+```JavaScript
+root = d3.hierarchy(data).sum((d) => d.value);
+  treemapLayout = d3
+    .treemap()
+    .size([currentWidth, currentHeight])
+    .padding(6)
+    .tile(d3.treemapSquarify);
+```
+
+We are specifying the `treemapSquarify` option for the tile because this give a nicer aspect ratio.  To learn more about treemaps, you can read 
 I decided to try to create a zoomable treemap to viualize the showcase (similar to this [one](https://observablehq.com/@d3/zoomable-treemap) listed in the examples on the d3 website).
 
 I am sure there are many improvements that could be added, but it is a decent start. You can explore the treemap here.
 
 ## Resources
 
-[d3-hierarchy/treemap](https://d3js.org/d3-hierarchy/treemap)
+- [d3-hierarchy/treemap Documentation](https://d3js.org/d3-hierarchy/treemap)
+- [Treemapping](https://en.wikipedia.org/wiki/Treemapping)
+- [Squarified Treemaps](https://vanwijk.win.tue.nl/stm.pdf)
+- [Squarify Processing Libary](https://github.com/agatheblues/squarify)
