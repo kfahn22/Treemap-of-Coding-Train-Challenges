@@ -22,7 +22,7 @@ The output of this command will look like something like this:
 
 I got some help from chatGPT writing the script to create the json file. It could probably be improved upon, but it is functional. Because I wanted to explore creating a zoomable treemap, I grouped the challenges into major categories and then divided some into sub-categories. Again, my categorization scheme could probably be improved upon, but I think it is a decent start.
 
-3. Run the `create_json.py` script in terminal, changing `input_file` (line 131) to whatever you have named the txt file. Make sure your are in the same folder as the txt file when you run the command.
+3. Run the `create_json.py` script in terminal, changing `input_file` (line 131) to whatever you have named the txt file. Make sure you are in the same folder as the txt file when you run the command.
 
 ```python
 python create_json.py
