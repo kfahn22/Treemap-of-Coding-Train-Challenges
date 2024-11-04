@@ -30,6 +30,7 @@ python create_json.py
 
 The output will be a json file (It is named `showcases.json`). It will have the following format:
 
+```JSON
 {
     "name": "root",
     "children": [
@@ -50,6 +51,7 @@ The output will be a json file (It is named `showcases.json`). It will have the 
                 }
             ]
         },
+```
 
 
 4. Preload the json file into your p5 sketch using the loadJSON() function.
