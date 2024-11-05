@@ -28,3 +28,11 @@ canvas {
   margin-right: auto;
   font-size: 1.2em;
 }
+
+p {
+  color: #fcee21;
+  font-size: 1.5em;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
