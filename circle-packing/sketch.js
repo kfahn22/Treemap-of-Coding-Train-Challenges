@@ -1,3 +1,5 @@
+// https://observablehq.com/@d3/zoomable-circle-packing
+
 let data;
 let root, treemapLayout;
 let currentRoot;
@@ -33,17 +35,20 @@ function setup() {
   currentHeight = height;
 
   // Initialize D3 Hierarchy and Treemap Layout
-  root = d3.hierarchy(data).sum((d) => d.value);
-  treemapLayout = d3
-    .treemap()
-    .size([currentWidth, currentHeight])
-    .padding(6)
-    .tile(d3.treemapSquarify);
+  root = d3.pack(data).size([currentWidth, currentHeight]).padding(3)(
+    d3
+      .hierarchy(data)
+      .sum((d) => d.value)
+      .sort((a, b) => b.value - a.value)
+  );
+  //let root = pack(data);
 
   // Set initial display level to the root
   currentRoot = root;
-  applyTreemapLayout();
-  drawTreemap();
+
+  console.log(root)
+  applyPackLayout();
+  drawPack();
 }
 
 function setTitle(txt) {
@@ -54,36 +59,33 @@ function setTitle(txt) {
     p1.remove();
   }
 
-  p = createP(`Treemap of ${txt} Challenge Showcases`).addClass("title");
+  p = createP(`Circle Packing of ${txt} Challenge Showcases`).addClass("title");
   p1 = createP(
     "Click into the subcategories. If you are viewing individual challenge showcase counts, clicking again will bring you back to the main view."
   );
 }
 
-function applyTreemapLayout() {
-  treemapLayout(currentRoot);
-  // showcases = currentRoot.children
-  //   ? currentRoot.children.map((node) => node.value)
-  //   : [];
-  // let max = max(showcases);
-  // console.log(max)
+function applyPackLayout() {
+  d3.pack(currentRoot);
 }
 
-function drawTreemap() {
+function drawPack() {
   background(0);
 
   (currentRoot.children || []).forEach((node) => {
-    let x = node.x0 || 0;
-    let y = node.y0 || 0;
-    let w = (node.x1 || 0) - (node.x0 || 0);
-    let h = (node.y1 || 0) - (node.y0 || 0);
+    let x = node.x || 0;
+    let y = node.y || 0;
+    let r = node.r;
+    // let w = (node.x1 || 0) - (node.x0 || 0);
+    // let h = (node.y1 || 0) - (node.y0 || 0);
 
     // TODO Try to fill with examples of challenge
     fill(random(palette));
     noStroke();
     strokeWeight(4);
-    rect(x, y, w, h);
-    addText(x, y, w, h, node);
+   circle(x, y, r);
+    console.log(x, y, r)
+    //addText(x, y, r, node);
 });
 }
 
@@ -106,29 +108,29 @@ function mousePressed() {
   if (clickedNode && clickedNode.children) {
     setTitle(clickedNode.data.name);
     currentRoot = d3.hierarchy(clickedNode.data).sum((d) => d.value);
-    applyTreemapLayout();
+    applyPackLayout();
   } else {
     clear();
     currentRoot = root;
-    applyTreemapLayout();
+    applyPackLayout();
     p.remove();
     setTitle(txt);
   }
 
-  drawTreemap();
+  drawPack();
 }
 
-function addText(x, y, w, h, node) {
+function addText(x, y, r, node) {
   fill(255);
   noStroke();
   let n = node.data.name;
   let tw = textWidth(n);
   let nshowcase = `${node.value} showcases`;
   let tws = textWidth(nshowcase);
-  let a = w * h;
-  let s = map(tw / w, 0, 1, 12, 20);
-  textSize(s);
-  console.log(node.data.name, w / a, a / w);
+  // let a = w * h;
+  let s = map(r, 0, 250, 12, 20);
+  //textSize(s);
+  //console.log(node.data.name, w / a, a / w);
   // Do nothing - not enough space for text
     if (a < 12000) {
       // if (a < 15000) {
@@ -137,8 +139,8 @@ function addText(x, y, w, h, node) {
       push();
       textSize(s);
       textAlign(CENTER, TOP);
-      text(node.data.name, x, y, w);
-      text(`${node.value} showcases`, x, y + s, w);
+      text(node.data.name, x-r, y, 2*r);
+      text(`${node.value} showcases`, x, y, 2*r);
       pop();
       // Case for tall, skinny rect -- this is a hack!, there is probably a better way to do this)
     } else if ((tw > 0.8 * w || tws > 0.8 * w) && h > 100) {
