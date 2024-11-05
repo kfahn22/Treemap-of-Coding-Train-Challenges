@@ -8,30 +8,18 @@ canvas {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  padding-top: 1em;
+  /* padding-top: 8em; */
 }
 .title {
-  color: #fcee21;
+  color: white;
   font-size: 2.5em;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
 }
 
-/* .reset {
-  color: white;
-  background-color: #66d334;
-  color: black;
-  display: block;
-  padding: 0.5em;
-  margin-top: 1em;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 1.2em;
-} */
-
 p {
-  color: #fcee21;
+  color: white;
   font-size: 1.5em;
   margin-left: auto;
   margin-right: auto;
