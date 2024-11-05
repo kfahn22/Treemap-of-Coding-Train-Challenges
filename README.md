@@ -85,6 +85,7 @@ I decided to try to create a zoomable treemap to visualize the showcase (similar
 ## Resources
 
 - [d3-hierarchy/treemap Documentation](https://d3js.org/d3-hierarchy/treemap)
-- [Treemapping](https://en.wikipedia.org/wiki/Treemapping)
+- [Growth Lab](https://atlas.cid.harvard.edu/explore?country=188&queryLevel=location&product=undefined&year=2001&productClass=HS&target=Product&partner=undefined&startYear=undefined)
 - [Squarified Treemaps](https://vanwijk.win.tue.nl/stm.pdf)
 - [Squarify Processing Libary](https://github.com/agatheblues/squarify)
+- [Treemapping](https://en.wikipedia.org/wiki/Treemapping)
