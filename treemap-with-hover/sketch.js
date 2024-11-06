@@ -1,7 +1,7 @@
-let root;//, treemapLayout;
+let root; //, treemapLayout;
 let treemapData;
 let currentRoot;
-let p, p1;
+let p, p1, p2;
 let txt = "Coding Train";
 let graphics = [];
 let popup = null;
@@ -81,10 +81,14 @@ function draw() {
   }
 }
 
-function setTitle(parent) {
-    if (p1)
-    {p1.remove();}
-    p1 = createP(`${parent} Challenge Showcases`).id("second");
+function setTitle(parent, value) {
+  if (p1) {
+    p1.remove();
+    // p2.remove();
+  }
+
+  p1 = createP(`${parent} Challenges: ${value} showcases`).id("second");
+  //p2 = createP(`${value} showcases`).id("second");
 }
 
 function drawTreemap() {
@@ -100,7 +104,6 @@ function drawTreemap() {
     let y = y0 || 0;
     let w = (x1 || 0) - (x0 || 0);
     let h = (y1 || 0) - (y0 || 0);
-
 
     let parentNode = node.parent;
 
@@ -125,9 +128,9 @@ function drawTreemap() {
     if (w > 300) {
       buffer.text(node.data.name, w / 2, h / 2);
     } else if (w <= 300 && w > 200) {
-      buffer.text(node.data.name, 10, h/2, w);
+      buffer.text(node.data.name, 10, h / 2, w);
     } else {
-      buffer.text(getLeadingNumber(node.data.name), w / 2, h/2);
+      buffer.text(getLeadingNumber(node.data.name), w / 2, h / 2);
     }
 
     graphics.push({
@@ -138,10 +141,9 @@ function drawTreemap() {
       h: h,
       name: node.data.name,
       value: node.value,
-      parent: parentNode
+      parent: parentNode,
     });
   }
-  
 }
 
 // Helper function from chatGPT
@@ -158,13 +160,12 @@ function mouseMoved() {
   let found = false;
   for (let g of graphics) {
     let parent = g.parent;
+    let num = parent.value;
     let majorCategory = parent.parent;
     if (majorCategory.data.name == "root") {
-      //console.log("hello")
-      setTitle(parent.data.name);
-   // console.log(majorCategory.data.name + "/" + parent.data.name);
-    } else  {
-      setTitle(majorCategory.data.name + "/" + parent.data.name);
+      setTitle(parent.data.name, num);
+    } else {
+      setTitle(majorCategory.data.name + "/" + parent.data.name, num);
     }
     if (
       mouseX > g.x &&
@@ -187,8 +188,6 @@ function mouseMoved() {
     popup = null;
   }
 }
-
-
 
 // function mousePressed() {
 //   let clickedNode = null;

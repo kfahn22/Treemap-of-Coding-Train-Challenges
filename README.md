@@ -78,7 +78,7 @@ root = d3.hierarchy(data).sum((d) => d.value);
     .tile(d3.treemapSquarify);
 ```
 
-We are specifying the `treemapSquarify` option for the tile because this give a nicer aspect ratio for the rectangles - the default is to use the golden ratio although it is possible to choose others. (Note that the documentation notes that this is the goal, and does not guarantee nice rectangles with nice aspect ratios.) To learn more about treemaps, I recommend reading the seminal article "Squarified Treemaps" by Bruls, et. al.
+We are specifying the `treemapSquarify` option for the tile because this give a nicer aspect ratio for the rectangles - the default is to use the golden ratio although it is possible to choose others. (Note that the documentation notes that this is the goal, and does not guarantee nice rectangles with nice aspect ratios.) You can learn more about treemaps by reading the paper "Squarified Treemaps" by Bruls, et. al.
 
 I decided to try to create a zoomable treemap to visualize the showcase (similar to this [one](https://observablehq.com/@d3/zoomable-treemap) listed in the examples on the d3 website). They use svg container, which is not something that is natively supported in p5.js. I was able to create my own version (with some help from chatGPT) using a createGraphics buffer. I am sure there are many improvements that could be added, but it is a decent start. You can explore the treemap here.
 
