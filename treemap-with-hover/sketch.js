@@ -84,11 +84,9 @@ function draw() {
 function setTitle(parent, value) {
   if (p1) {
     p1.remove();
-    // p2.remove();
   }
 
   p1 = createP(`${parent} Challenges: ${value} showcases`).id("second");
-  //p2 = createP(`${value} showcases`).id("second");
 }
 
 function drawTreemap() {
@@ -188,33 +186,3 @@ function mouseMoved() {
     popup = null;
   }
 }
-
-// function mousePressed() {
-//   let clickedNode = null;
-
-//   (currentRoot.children || []).forEach((node) => {
-//     let x = node.x0 || 0;
-//     let y = node.y0 || 0;
-//     let w = (node.x1 || 0) - (node.x0 || 0);
-//     let h = (node.y1 || 0) - (node.y0 || 0);
-
-//     if (mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h) {
-//       clickedNode = node;
-//       currentWidth = clickedNode.x1 - clickedNode.x0;
-//       currentHeight = clickedNode.y1 - clickedNode.y0;
-//     }
-//   });
-
-//   if (clickedNode && clickedNode.children) {
-//     setTitle(clickedNode.data.name);
-//     currentRoot = d3.hierarchy(clickedNode.data).sum((d) => d.value);
-//     applyTreemapLayout();
-//   } else {
-//     currentRoot = root;
-//     applyTreemapLayout();
-//     //p.remove();
-//     // setTitle(txt);
-//   }
-
-//   drawTreemap();
-// }
