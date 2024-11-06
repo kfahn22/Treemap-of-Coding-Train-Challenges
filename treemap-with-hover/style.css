@@ -1,0 +1,28 @@
+html,
+body {
+  /* margin: 0;
+  /* padding: 0; */
+  background-color: black;
+}
+canvas {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 1em;
+}
+.title {
+  color: white;
+  font-size: 3em;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+#second {
+  color: white;
+  font-size: 2em;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+

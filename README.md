@@ -80,12 +80,13 @@ root = d3.hierarchy(data).sum((d) => d.value);
 
 We are specifying the `treemapSquarify` option for the tile because this give a nicer aspect ratio for the rectangles - the default is to use the golden ratio although it is possible to choose others. (Note that the documentation notes that this is the goal, and does not guarantee nice rectangles with nice aspect ratios.) To learn more about treemaps, I recommend reading the seminal article "Squarified Treemaps" by Bruls, et. al.
 
-I decided to try to create a zoomable treemap to visualize the showcase (similar to this [one](https://observablehq.com/@d3/zoomable-treemap) listed in the examples on the d3 website).  They use svg container, which is not something that is natively supported in p5.js. I was able to create my own version (with some help from chatGPT) using a createGraphics buffer. I am sure there are many improvements that could be added, but it is a decent start. You can explore the treemap here.
+I decided to try to create a zoomable treemap to visualize the showcase (similar to this [one](https://observablehq.com/@d3/zoomable-treemap) listed in the examples on the d3 website). They use svg container, which is not something that is natively supported in p5.js. I was able to create my own version (with some help from chatGPT) using a createGraphics buffer. I am sure there are many improvements that could be added, but it is a decent start. You can explore the treemap here.
 
 ## Resources
 
 - [d3-hierarchy/treemap Documentation](https://d3js.org/d3-hierarchy/treemap)
 - [Growth Lab](https://atlas.cid.harvard.edu/explore?country=188&queryLevel=location&product=undefined&year=2001&productClass=HS&target=Product&partner=undefined&startYear=undefined)
+- [Squarify - Javascript](https://github.com/huy-nguyen/squarify/tree/master)
 - [Squarified Treemaps](https://vanwijk.win.tue.nl/stm.pdf)
 - [Squarify Processing Libary](https://github.com/agatheblues/squarify)
 - [Treemapping](https://en.wikipedia.org/wiki/Treemapping)
