@@ -20,7 +20,7 @@ A naive attempt results in skinny, elongated rectangles. The squarify algorithm 
 
 ## Steps to Create a Squarified Treemap
 
-### Generate or obtain a json file
+### Generate or obtain a JSON file
 
 Since there was no pre-existing JSON file with data on Coding Train challenge showcase count, I had to generate one. There are, however, many pre-existing files that you could use. If you would like more information on how to access and import a JSON file into a p5 sketch, I recommend watching Daniel Shiffman's [Working with Data and APIs in JavaScript](https://thecodingtrain.com/tracks/data-and-apis-in-javascript) tutorials.
 
@@ -101,7 +101,9 @@ function preload() {
     .tile(d3.treemapSquarify);
 ```
 
-We are specifying the `treemapSquarify` option for the tile because this give a nicer aspect ratio for the rectangles - the default is to use the golden ratio although it is possible to choose others. (Note that the documentation notes that this is the goal, and does not guarantee nice rectangles with nice aspect ratios.) You can learn more about treemaps by reading the paper "Squarified Treemaps" by Bruls, et. al. For the first version, we retrieve the leaf nodes:
+We are specifying the `treemapSquarify` option for the tile because this give a nicer aspect ratio for the rectangles - the default is to use the golden ratio although it is possible to choose others. (Note that while the documentation states that this is the goal, it is not guaranteed.) You can learn more about treemaps by reading "Squarified Treemaps" by Bruls, et. al.
+
+For the first treemap version, we retrieve the leaf nodes:
 
 ```JavaScript
 treemapData = root.leaves();
@@ -109,7 +111,7 @@ treemapLayout(root);
 drawTreemap();
 ```
 
-The d3.js examples use svg container, which is not something that is natively supported in p5.js. I was able to create my own version (with some help from chatGPT) using a createGraphics buffer. In drawTreemap(), we loop through the nodes of `root.leaves()`, retrieving the challenge name (node.data.name) and showcase count (node.value), and the x, y positions of the start and end of the rectangles (node.x0, node.x1, node.y0, node.y1). I am also storing the name of the parent category (node.parent), which I add in a subtitle below the treemap.
+The d3.js [examples](https://observablehq.com/@d3/treemap/2) use a svg container, which is not something that is natively supported in p5.js. I was able to create my own version (with some help from chatGPT) using a createGraphics buffer. In drawTreemap(), we loop through the nodes of `root.leaves()`, retrieving the challenge name (node.data.name) and showcase count (node.value), and the x, y positions of the start and end of the rectangles (node.x0, node.x1, node.y0, node.y1). I am also storing the name of the parent category (node.parent), which I add in a subtitle below the treemap.
 
 ```JavaScript
 graphics.push({
