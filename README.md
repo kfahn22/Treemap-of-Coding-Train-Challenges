@@ -10,7 +10,7 @@ The second one is a zoomable treemap. Only the major categories are listed in th
 
 <p align="center"><img src="assets/zoomable-treemap.jpg" alt="Zoomable reemap of Coding Challenge showcases" width="500px"></p>
 
-The basic principle behind a treemap is fairly simple -- visually represent the data by drawing a rectangle for each category, with the area proportional to the relative value of that category. For example, as of 10-30-24 there 2800 challenge showcases on the website, and 90 have been submitted to 10Print. Consequently, the area for the 10Print Coding Challenge should be large relative to the size of another challenge with only a few showcases.
+The basic principle behind a treemap is fairly simple -- visually represent the data by drawing a rectangle for each category, with the area proportional to the relative value of that category. For example, as of 10-30-24 there about 2800 challenge showcases on the website, and 90 have been submitted to 10Print. Consequently, the area for the 10Print Coding Challenge should be large relative to the size of another challenge with only a few showcases.
 
 A naive attempt results in skinny, elongated rectangles. The squarify algorithm was developed to address this issue by improving the aspect ratio of the rectangles. I am utilizing the d3.js library, which has an option to build a treemap using the squarify algorithm. You will need to add the d3.js library in the index.html file.
 
