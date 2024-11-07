@@ -1,12 +1,30 @@
-# Treemap 0f Coding Train Challenges Showcases
+# Treemap 0f Coding Train Challenges Showcases 
 
-A while back I found a zoomable treemap of US imports that I really liked and decided to create my own version of a zoomable treemap. A good rule of thumb is that you should start with data that you know pretty well, so I decided to start with data on the Coding Train challenge showcase counts. After a few iterations, I have come up with a zoomable treemap in p5.js using [d3js](https://d3js.org), illustrated with [Coding Train](https://github.com/CodingTrain/thecodingtrain.com) challenge showcase count.
+A while back I found a zoomable treemap of US imports that I really liked and decided to create my own version of a zoomable treemap. A good rule of thumb is that you should start with data that you know pretty well, so I decided to start with data on the Coding Train challenge showcase counts (since I help to maintain the [Coding Train](https://github.com/CodingTrain/thecodingtrain.com) website). After a few iterations, I have come up with two versions of the treemap in p5.js using [d3js](https://d3js.org), illustrated with Coding Train challenge showcase count. The first lists all of the challenges in one view, with the challenges grouped together into major categories:
 
 <p align="center"><img src="assets/treemap.jpg" alt="Treemap of Coding Challenge showcases" width="500px"></p>
 
-## Steps
+As you can see, because there are so many challenges that quite a few of the rectangles are very small and there was only space to list the challenge number. A popup window lists the full challenge name and showcase count. You can explore the treemap [here](https://editor.p5js.org/kfahn/full/hKThc8O9o).
 
-1. Make sure you are in the directory that you want to base the treemap on, and then run this [command](https://stackoverflow.com/questions/71669974/how-to-count-number-of-tracked-files-in-each-sub-directory-of-the-repository) in terminal.
+The second one is a zoomable treemap. Only the major categories are listed in the first view, and you click into a deeper view. You can explore the zoomable treemap [here](https://editor.p5js.org/kfahn/full/snbNKwyWW).
+
+<p align="center"><img src="assets/zoomable-treemap.jpg" alt="Zoomable reemap of Coding Challenge showcases" width="500px"></p>
+
+The basic principle behind a treemap is fairly simple -- visually represent the data by drawing a rectangle for each data point, with the area proportional to the relative value of that point. For example, as of 10-30-24 there 2800 challenge showcases on the website, and 90 have been submitted to 10Print. Consequently, the area for the 10Print Coding Challenge should be large relative to the size of another challenge with only a few showcases.
+
+A naive attempt results in skinny, elongated rectangles. The squarify algorithm was developed to address this issue by improving the aspect ratio of the rectangles. I am utilizing the d3.js library, which has an option to build a treemap using the squarify algorithm. You will need to add the d3.js library in the index.html file.
+
+```html
+ <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+```
+
+## Steps to Create a Squarified Treemap
+
+### Generate or obtain a json file
+
+Since there was no pre-existing JSON file with data on Coding Train challenge showcase count, I had to generate one. There are, however, many pre-existing files that you could use. If you would like more information on how to access and import a JSON file into a p5 sketch, I recommend watching Daniel Shiffman's [Working with Data and APIs in JavaScript](https://thecodingtrain.com/tracks/data-and-apis-in-javascript) tutorials.
+
+If you want to create your own, make sure you are in the directory that you want to base the treemap on, and then run this [command](https://stackoverflow.com/questions/71669974/how-to-count-number-of-tracked-files-in-each-sub-directory-of-the-repository) in terminal.
 
 <p align="center"><img src="assets/git.png" alt="git command" width="500px"></p>
 
@@ -24,11 +42,11 @@ The output of this command will look like something like this:
 1 content/videos/challenges/102-2d-water-ripple/images/
 ```
 
-2. Copy the result of the command and paste into a .txt file. (I named the file "10_30_24.txt" because I wanted to keep track of the date I accessed the Coding Train website files.)
+I copied the result of the command and pasted into a .txt file. (I named the file "10_30_24.txt" because I wanted to keep track of the date I accessed the Coding Train website files.)
 
-I got some help from chatGPT writing the script to create the json file. It could probably be improved upon, but it is functional. Because I wanted to explore creating a zoomable treemap, I grouped the challenges into major categories and then divided some into sub-categories. Again, my categorization scheme could probably be improved upon, but I think it is a decent start.
+I got some help from chatGPT writing the script to create the JSON file. It could probably be improved upon, but it is functional. Because I wanted to explore creating a zoomable treemap, I grouped the challenges into major categories and then divided some into sub-categories. The categorization scheme is based on my knowledge of what topics were covered in each challenge and was a bit of a judgement call, which is often the data with data analysis.
 
-3. Run the `create_json.py` script in terminal, changing `input_file` (line 131) to whatever you have named the txt file. Make sure you are in the same folder as the txt file when you run the command.
+Run the `create_json.py` script in terminal, changing `input_file` (line 131) to whatever you have named the txt file. Make sure you are in the same folder as the txt file when you run the command.
 
 ```python
 python create_json.py
@@ -59,7 +77,7 @@ The output will be a json file (`showcases.json`). It will have the following fo
         },
 ```
 
-4. Preload the json file into your p5 sketch using the loadJSON() function.
+### Preload the json file into your p5 sketch
 
 ```JavaScript
 function preload() {
@@ -67,7 +85,7 @@ function preload() {
 }
 ```
 
-5. Initialize the d3 hierarchy and treemap layout.
+### Initialize the d3 hierarchy and treemap layout
 
 ```JavaScript
 root = d3.hierarchy(data).sum((d) => d.value);
@@ -80,7 +98,7 @@ root = d3.hierarchy(data).sum((d) => d.value);
 
 We are specifying the `treemapSquarify` option for the tile because this give a nicer aspect ratio for the rectangles - the default is to use the golden ratio although it is possible to choose others. (Note that the documentation notes that this is the goal, and does not guarantee nice rectangles with nice aspect ratios.) You can learn more about treemaps by reading the paper "Squarified Treemaps" by Bruls, et. al.
 
-I decided to try to create a zoomable treemap to visualize the showcase (similar to this [one](https://observablehq.com/@d3/zoomable-treemap) listed in the examples on the d3 website). They use svg container, which is not something that is natively supported in p5.js. I was able to create my own version (with some help from chatGPT) using a createGraphics buffer. I am sure there are many improvements that could be added, but it is a decent start. You can explore the treemap here.
+The d3.js examples use svg container, which is not something that is natively supported in p5.js. I was able to create my own version (with some help from chatGPT) using a createGraphics buffer.
 
 ## Resources
 

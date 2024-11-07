@@ -34,6 +34,7 @@ function setup() {
 
   // Initialize D3 Hierarchy and Treemap Layout
   root = d3.hierarchy(data).sum((d) => d.value);
+  console.log(root)
 
   treemapLayout = d3
     .treemap()

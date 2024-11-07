@@ -1,17 +1,16 @@
 html,
 body {
-  /* margin: 0;
-  /* padding: 0; */
-  background-color: black;
+  margin: 0;
+  padding: 0;
+  background-color: white;
 }
 canvas {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  padding-top: 1em;
 }
 .title {
-  color: white;
+  color: black;
   font-size: 3em;
   margin-left: auto;
   margin-right: auto;
@@ -19,10 +18,9 @@ canvas {
 }
 
 #second {
-  color: white;
-  font-size: 2em;
+  color: black;
+  font-size: 2.2em;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
 }
-
