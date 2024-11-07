@@ -3,8 +3,7 @@
 
 // I utilized chatGPT to iteratively develop some of this code. I have found that it can be quite useful, provided you give it the proper context to understand what you want to accomplish. It is also important to remember that once you ask a question, it is logged to a database so do not post anything you wish to keep private.  The Coding Train website has a MIT license.  
 
-let root, treemapData; 
-let currentRoot;
+let root; 
 let p, p1;
 let graphics = [];
 let popup = null;
@@ -46,7 +45,7 @@ function setup() {
   //console.log(root)
 
   // Retrieve only the leaf nodes
-  treemapData = root.leaves();
+  //treemapData = root.leaves();
   treemapLayout(root);
   drawTreemap();
 }

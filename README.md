@@ -106,7 +106,6 @@ We are specifying the `treemapSquarify` option for the tile because this give a 
 For the first treemap version, we retrieve the leaf nodes:
 
 ```JavaScript
-treemapData = root.leaves();
 treemapLayout(root);
 drawTreemap();
 ```
