@@ -109,7 +109,7 @@ treemapLayout(root);
 drawTreemap();
 ```
 
-The d3.js examples use svg container, which is not something that is natively supported in p5.js. I was able to create my own version (with some help from chatGPT) using a createGraphics buffer. In drawTreemap(), we loop through the nodes of `root.leaves()`, retrieving the challenge name (node.data.name) and showcase count (node.value), and the x, y positions of the start and end of the rectangles (node.x0, node.x1, node.y0, node.y1). I am also storing the name of the parent category (node.parent), which I add in subtitle below the treemap.
+The d3.js examples use svg container, which is not something that is natively supported in p5.js. I was able to create my own version (with some help from chatGPT) using a createGraphics buffer. In drawTreemap(), we loop through the nodes of `root.leaves()`, retrieving the challenge name (node.data.name) and showcase count (node.value), and the x, y positions of the start and end of the rectangles (node.x0, node.x1, node.y0, node.y1). I am also storing the name of the parent category (node.parent), which I add in a subtitle below the treemap.
 
 ```JavaScript
 graphics.push({

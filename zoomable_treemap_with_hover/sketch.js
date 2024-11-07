@@ -33,6 +33,14 @@ function setup() {
   root = d3.hierarchy(data).sum((d) => d.value);
   //console.log(root)
 
+// Uncomment this line if you want the major categories sorted by size
+// root = d3
+//   .hierarchy(data)
+//   .sum((d) => d.value)
+//   .sort((a, b) => b.value - a.value);
+
+
+
   treemapLayout = d3
     .treemap()
     .size([width, height])
