@@ -29,16 +29,13 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   setTitle(txt);
 
-  currentWidth = width;
-  currentHeight = height;
-
   // Initialize D3 Hierarchy and Treemap Layout
   root = d3.hierarchy(data).sum((d) => d.value);
-  console.log(root)
+  //console.log(root)
 
   treemapLayout = d3
     .treemap()
-    .size([currentWidth, currentHeight])
+    .size([width, height])
     .padding(4)
     .tile(d3.treemapSquarify);
 
@@ -93,7 +90,6 @@ function setTitle(txt) {
 
 function drawTreemap() {
   graphics = []; // Clear the graphics array to avoid layering
-  background(0);
 
   (currentRoot.children || []).forEach((node) => {
     let x = node.x0 || 0;
@@ -163,8 +159,6 @@ function mousePressed() {
 
     if (mouseX > x && mouseX < x + w && mouseY > y && mouseY < y + h) {
       clickedNode = node;
-      currentWidth = clickedNode.x1 - clickedNode.x0;
-      currentHeight = clickedNode.y1 - clickedNode.y0;
     }
   });
 

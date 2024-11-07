@@ -88,17 +88,49 @@ function preload() {
 ### Initialize the d3 hierarchy and treemap layout
 
 ```JavaScript
-root = d3.hierarchy(data).sum((d) => d.value);
+// Initialize D3 Hierarchy and Treemap Layout
+  root = d3
+    .hierarchy(data)
+    .sum((d) => d.value)
+    .sort((a, b) => b.value - a.value);
+
   treemapLayout = d3
     .treemap()
-    .size([currentWidth, currentHeight])
-    .padding(6)
+    .size([width, height])
+    .padding(3)
     .tile(d3.treemapSquarify);
 ```
 
-We are specifying the `treemapSquarify` option for the tile because this give a nicer aspect ratio for the rectangles - the default is to use the golden ratio although it is possible to choose others. (Note that the documentation notes that this is the goal, and does not guarantee nice rectangles with nice aspect ratios.) You can learn more about treemaps by reading the paper "Squarified Treemaps" by Bruls, et. al.
+We are specifying the `treemapSquarify` option for the tile because this give a nicer aspect ratio for the rectangles - the default is to use the golden ratio although it is possible to choose others. (Note that the documentation notes that this is the goal, and does not guarantee nice rectangles with nice aspect ratios.) You can learn more about treemaps by reading the paper "Squarified Treemaps" by Bruls, et. al. For the first version, we retrieve the leaf nodes:
 
-The d3.js examples use svg container, which is not something that is natively supported in p5.js. I was able to create my own version (with some help from chatGPT) using a createGraphics buffer.
+```JavaScript
+treemapData = root.leaves();
+treemapLayout(root);
+drawTreemap();
+```
+
+The d3.js examples use svg container, which is not something that is natively supported in p5.js. I was able to create my own version (with some help from chatGPT) using a createGraphics buffer. In drawTreemap(), we loop through the nodes of `root.leaves()`, retrieving the challenge name (node.data.name) and showcase count (node.value), and the x, y positions of the start and end of the rectangles (node.x0, node.x1, node.y0, node.y1). I am also storing the name of the parent category (node.parent), which I add in subtitle below the treemap.
+
+```JavaScript
+graphics.push({
+      buffer: buffer,
+      x: x,
+      y: y,
+      w: w,
+      h: h,
+      name: node.data.name,
+      value: node.value,
+      parent: parentNode,
+    });
+```
+
+In the zoomable treemap, I have added a variable to keep track of the currentRoot. We loop through the currentRoot.children in drawTreemap(). Whenever a rectangle is clicked, the currentRoot is updated in applyTreemapLayout().
+
+```JavaScript
+currentRoot = root;
+applyTreemapLayout();
+drawTreemap();
+```
 
 ## Resources
 
