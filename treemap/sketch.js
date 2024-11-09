@@ -1,10 +1,9 @@
 // Treemap of Coding Train Challlenge Showcase Count
 // JSON file as of 10-30-24
 
-// I utilized chatGPT to iteratively develop some of this code. I have found that it can be quite useful, provided you give it the proper context to understand what you want to accomplish. It is also important to remember that once you ask a question, it is logged to a database so do not post anything you wish to keep private.  The Coding Train website has a MIT license.  
+// I utilized chatGPT to iteratively develop some of this code. I have found that it can be quite useful, provided you give it the proper context to understand what you want to accomplish. It is also important to remember that once you ask a question, it is logged to a database so do not post anything you wish to keep private.  The Coding Train website has a MIT license.
 
-let root, treemapData; 
-let currentRoot;
+let root;
 let p, p1;
 let graphics = [];
 let popup = null;
@@ -44,9 +43,6 @@ function setup() {
     .tile(d3.treemapSquarify);
 
   //console.log(root)
-
-  // Retrieve only the leaf nodes
-  treemapData = root.leaves();
   treemapLayout(root);
   drawTreemap();
 }
@@ -57,27 +53,36 @@ function draw() {
     image(g.buffer, g.x, g.y, g.w, g.h);
   }
 
-  if (popup && popup.x < width * 0.75) {
-    fill(255);
-    stroke(0);
-    rect(popup.x, popup.y, popup.w, popup.h);
+  if (popup) {
+    let x = popup.x;
+    let y = popup.y;
+    let [xadj, yadj] = fixPopup(x, y);
+    fill(255, 255, 255, 220);
+    rect(popup.x - xadj, popup.y - yadj, popup.w, popup.h, 10);
     fill(0);
     noStroke();
     textSize(18);
     textAlign(LEFT, TOP);
-    text(popup.text, popup.x + 5, popup.y + 5);
-  } else {
-    if (popup && popup.x > width * 0.75) {
-      fill(255);
-      stroke(0);
-      rect(popup.x - 200, popup.y, popup.w, popup.h);
-      fill(0);
-      noStroke();
-      textSize(15);
-      textAlign(LEFT, TOP);
-      text(popup.text, popup.x - 200 + 5, popup.y);
-    }
+    text(popup.text, popup.x - xadj + 5, popup.y - yadj + 5, popup.w);
   }
+}
+
+function fixPopup(x, y) {
+  let xadj, yadj;
+  if (x < width * 0.66 && y < height * 0.66) {
+    xadj = 0;
+    yadj = 0;
+  } else if (x > width * 0.66 && y < height * 0.66) {
+    xadj = 350;
+    yadj = 0;
+  } else if (x < width * 0.66 && y > height * 0.66) {
+    xadj = 0;
+    yadj = 100;
+  } else if (x > width * 0.66 && y > height * 0.66) {
+    xadj = 350;
+    yadj = 100;
+  }
+  return [xadj, yadj];
 }
 
 function setTitle(parent, value) {
@@ -115,15 +120,22 @@ function drawTreemap() {
     let nodeColor = nodeColors.get(parentNode);
 
     let buffer = createGraphics(w, h);
-    buffer.fill(nodeColor[0], nodeColor[1], nodeColor[2]);
+    buffer.fill(nodeColor);
     buffer.rect(0, 0, w, h);
     buffer.fill(255);
     buffer.textSize(22);
     buffer.textAlign(CENTER, CENTER);
+    // if (w > 300) {
+    //   buffer.text(node.data.name, w / 2, h / 2);
+    // } else if (w <= 300 && w > 200) {
+    //   buffer.text(node.data.name, 10, h / 2, w);
+    // } else {
+    //   buffer.text(getLeadingNumber(node.data.name), w / 2, h / 2);
+    //}
     if (w > 300) {
-      buffer.text(node.data.name, w / 2, h / 2);
-    } else if (w <= 300 && w > 200) {
-      buffer.text(node.data.name, 10, h / 2, w);
+      buffer.text(node.data.name, w / 2, h / 2, w);
+      // } else if (w <= 300 && w > 200) {
+      //   buffer.text(node.data.name, 10, h / 2, w);
     } else {
       buffer.text(getLeadingNumber(node.data.name), w / 2, h / 2);
     }
@@ -145,7 +157,7 @@ function drawTreemap() {
 // The Coding in the Cabana challenges start with "C", so also have to account for that variation
 function getLeadingNumber(name) {
   const match = name.match(/^C?(\d+)/); // Matches an optional "C" followed by digits
-  return match ? parseInt(match[1], 10) : null; 
+  return match ? parseInt(match[1], 10) : null;
 }
 
 function mouseMoved() {
@@ -169,7 +181,7 @@ function mouseMoved() {
         x: mouseX + 10,
         y: mouseY + 10,
         w: 300,
-        h: 75,
+        h: 80,
         text: `${g.name}\n${g.value} showcases`,
       };
       found = true;
