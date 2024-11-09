@@ -123,7 +123,7 @@ function drawTreemap() {
     buffer.fill(nodeColor);
     buffer.rect(0, 0, w, h);
     buffer.fill(255);
-    buffer.textSize(22);
+    buffer.textSize(18);
     buffer.textAlign(CENTER, CENTER);
     // if (w > 300) {
     //   buffer.text(node.data.name, w / 2, h / 2);
