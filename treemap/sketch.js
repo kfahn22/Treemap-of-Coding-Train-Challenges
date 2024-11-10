@@ -125,17 +125,10 @@ function drawTreemap() {
     buffer.fill(255);
     buffer.textSize(18);
     buffer.textAlign(CENTER, CENTER);
-    // if (w > 300) {
-    //   buffer.text(node.data.name, w / 2, h / 2);
-    // } else if (w <= 300 && w > 200) {
-    //   buffer.text(node.data.name, 10, h / 2, w);
-    // } else {
-    //   buffer.text(getLeadingNumber(node.data.name), w / 2, h / 2);
-    //}
-    if (w > 300) {
-      buffer.text(node.data.name, w / 2, h / 2, w);
-      // } else if (w <= 300 && w > 200) {
-      //   buffer.text(node.data.name, 10, h / 2, w);
+    buffer.textSize(12);
+    buffer.textAlign(CENTER, CENTER);
+    if (w > 175) {
+      buffer.text(node.data.name, 0, h / 2, w);
     } else {
       buffer.text(getLeadingNumber(node.data.name), w / 2, h / 2);
     }
